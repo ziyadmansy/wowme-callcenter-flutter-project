@@ -1,3 +1,4 @@
+import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wowme/controllers/calls_controller.dart';
@@ -17,6 +18,15 @@ class _CallLogsPageState extends State<CallLogsPage> {
   @override
   void initState() {
     super.initState();
+    submitCallLogs();
+  }
+
+  Future<void> submitCallLogs() async {
+    Iterable<CallLogEntry> entries = await CallLog.get();
+
+    final callsController = Get.find<CallsController>();
+
+    await callsController.submitCallLogs(entries.toList());
   }
 
   @override
@@ -43,6 +53,14 @@ class _CallLogsPageState extends State<CallLogsPage> {
                       color: greenColor,
                     ),
                   ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  SharedCore.buildRoundedOutlinedButton(
+                    btnText: 'Refresh',
+                    onPress: submitCallLogs,
+                    btnColor: mainColor,
+                  )
                 ],
               ),
             ),

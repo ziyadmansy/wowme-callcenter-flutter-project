@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wowme/controllers/auth_controller.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+class MenuPage extends StatefulWidget {
+  const MenuPage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<MenuPage> createState() => _MenuPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return ListView(

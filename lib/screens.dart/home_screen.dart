@@ -1,9 +1,6 @@
-import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:wowme/controllers/calls_controller.dart';
 import 'package:wowme/pages/call_logs_page.dart';
-import 'package:wowme/pages/settings_page.dart';
+import 'package:wowme/pages/menu_page.dart';
 import 'package:wowme/shared/shared_core.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,19 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
         'body': const CallLogsPage(),
       },
       {
-        'title': 'Settings',
-        'body': const SettingsPage(),
+        'title': 'Menu',
+        'body': const MenuPage(),
       },
     ];
-
-    submitCallLogs();
-  }
-
-  Future<void> submitCallLogs() async {
-    Iterable<CallLogEntry> entries = await CallLog.get();
-
-    final callsController = Get.find<CallsController>();
-    await callsController.submitCallLogs(entries.toList());
   }
 
   @override
@@ -63,8 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: BottomNavigationBar(
           elevation: 0,
-          // CRITICAL ↓ a solid color here destroys FAB notch. Use alpha 0!
-          backgroundColor: Theme.of(context).primaryColor.withAlpha(0),
           currentIndex: _selectedBottomNav,
           onTap: (selectedItem) {
             setState(() {
@@ -74,13 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
           items: [
             BottomNavigationBarItem(
               icon: const Icon(
-                Icons.home,
+                Icons.call,
               ),
               label: _bottomNavItems[0]['title'] as String?,
             ),
             BottomNavigationBarItem(
               icon: const Icon(
-                Icons.settings,
+                Icons.menu,
               ),
               label: _bottomNavItems[1]['title'] as String?,
             )

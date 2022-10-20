@@ -4,7 +4,6 @@ import 'package:wowme/controllers/auth_controller.dart';
 import 'package:wowme/shared/constants.dart';
 
 class SharedCore {
-
   static Rx<String> getAccessToken() {
     final accessToken = Get.find<AuthController>().accessToken;
     print('Access Token: ${accessToken.value}');
@@ -40,7 +39,7 @@ class SharedCore {
         child: OutlinedButton(
           child: Text(btnText),
           style: ElevatedButton.styleFrom(
-            backgroundColor: btnColor,
+            foregroundColor: btnColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(kBorderRadius),
             ),

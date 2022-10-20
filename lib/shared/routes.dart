@@ -9,7 +9,7 @@ class AppRoutes {
 
   static final List<GetPage> routes = [
     GetPage(
-      name: AppRoutes.loginRoute,
+      name: AppRoutes.homeRoute,
       page: () => const HomeScreen(),
     ),
     GetPage(

@@ -37,6 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
         await authController.loginUser(email: email, password: password);
       } catch (error) {
         Get.snackbar('Error', 'Check your internet connection then try again');
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
   }
@@ -57,10 +61,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 32,
                 ),
-                Image.asset(
-                  appLogoPath,
-                  width: MediaQuery.of(context).size.width / 1.5,
-                  fit: BoxFit.fill,
+                ClipOval(
+                  child: Image.asset(
+                    appLogoPath,
+                    width: MediaQuery.of(context).size.width / 2,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                SizedBox(
+                  height: 32,
                 ),
                 Text(
                   'Login',
@@ -70,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 8.0,
+                  height: 16.0,
                 ),
                 SharedCore.buildClickableTextForm(
                   hint: 'test@test.com',
@@ -91,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 SizedBox(
-                  height: 16.0,
+                  height: 8.0,
                 ),
                 SharedCore.buildClickableTextForm(
                   hint: 'Password',

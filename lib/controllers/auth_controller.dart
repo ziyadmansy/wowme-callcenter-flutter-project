@@ -116,13 +116,11 @@ class AuthController extends GetConnect {
       print(response.body);
       print(response.statusCode);
 
-      if (response.statusCode == 201) {
-        accessToken.value = '';
-        await prefs.clear();
-        print('Signed out successfully');
-        Get.offAllNamed(AppRoutes.loginRoute);
-        Get.snackbar('Success!', response.body['message']);
-      }
+      accessToken.value = '';
+      await prefs.clear();
+      print('Signed out successfully');
+      Get.offAllNamed(AppRoutes.loginRoute);
+      Get.snackbar('Success!', 'Logged out successfully');
     } catch (e) {
       print(e);
     }

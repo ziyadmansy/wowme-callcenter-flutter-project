@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:call_log/call_log.dart';
 import 'package:get/get.dart';
+import 'package:wowme/controllers/auth_controller.dart';
 import 'package:wowme/shared/api_routes.dart';
 import 'package:wowme/shared/shared_core.dart';
 
@@ -14,6 +15,8 @@ class CallsController extends GetConnect {
         Get.snackbar('Empty Logs', 'No new call logs to send');
         return;
       }
+
+      isLoading.value = true;
 
       const url = ApiRoutes.callLogs;
       print(url);
@@ -33,6 +36,8 @@ class CallsController extends GetConnect {
               })
           .toList();
 
+      print(formattedLogs);
+
       final Response response = await post(
         url,
         json.encode(formattedLogs),
@@ -46,15 +51,29 @@ class CallsController extends GetConnect {
 
       if (response.statusCode == 201) {
         // Success
+        Get.snackbar(
+          'Call Logs - Code ${response.statusCode}',
+          formattedLogs.toString(),
+          duration: const Duration(seconds: 8),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      } else if (response.statusCode == 422) {
+        final authController = Get.find<AuthController>();
+
+        await authController.logoutUser();
+      } else {
+        throw Exception();
       }
-      Get.snackbar(
-        'Call Logs - Code ${response.statusCode}',
-        formattedLogs.toString(),
-        duration: Duration(seconds: 8),
-        snackPosition: SnackPosition.BOTTOM,
-      );
     } catch (e) {
       print(e);
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        duration: const Duration(seconds: 8),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } finally {
+      isLoading.value = false;
     }
   }
 }
