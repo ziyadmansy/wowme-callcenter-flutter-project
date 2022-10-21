@@ -26,9 +26,9 @@ class CallsController extends GetConnect {
                 'name': log.name,
                 'number': log.number,
                 'formatted_number': log.formattedNumber,
-                'call_type': log.callType.toString(),
+                'call_type': SharedCore.getCallTypeStringValue(log.callType),
                 'duration': log.duration,
-                'timestamp': log.timestamp,
+                'timestamp': log.timestamp.toString(),
                 'cached_number_type': log.cachedNumberType,
                 'cached_number_label': log.cachedNumberLabel,
                 'sim_display_name': log.simDisplayName,
@@ -49,7 +49,7 @@ class CallsController extends GetConnect {
       print(response.body);
       print(response.statusCode);
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         // Success
         Get.snackbar(
           'Call Logs - Code ${response.statusCode}',

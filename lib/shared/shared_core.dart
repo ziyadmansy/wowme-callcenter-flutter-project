@@ -1,3 +1,4 @@
+import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wowme/controllers/auth_controller.dart';
@@ -8,6 +9,33 @@ class SharedCore {
     final accessToken = Get.find<AuthController>().accessToken;
     print('Access Token: ${accessToken.value}');
     return accessToken;
+  }
+
+  static String getCallTypeStringValue(CallType? callType) {
+    switch (callType) {
+      case CallType.incoming:
+        return 'incomming';
+      case CallType.outgoing:
+        return 'outgoing';
+      case CallType.missed:
+        return 'missed';
+      case CallType.voiceMail:
+        return 'voiceMail';
+      case CallType.rejected:
+        return 'rejected';
+      case CallType.blocked:
+        return 'blocked';
+      case CallType.answeredExternally:
+        return 'answered_externally';
+      case CallType.unknown:
+        return 'unknown';
+      case CallType.wifiIncoming:
+        return 'wifi_oncoming';
+      case CallType.wifiOutgoing:
+        return 'wifi_outgoing';
+      default:
+        return 'unknown';
+    }
   }
 
   static Widget buildLoaderIndicator() {

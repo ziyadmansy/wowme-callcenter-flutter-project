@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(
-      Duration.zero,
+      const Duration(seconds: 1),
       () async {
         final authController = Get.find<AuthController>();
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -37,10 +37,12 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset(
-          appLogoPath,
-          width: MediaQuery.of(context).size.width / 1.5,
-          fit: BoxFit.fill,
+        child: ClipOval(
+          child: Image.asset(
+            appLogoPath,
+            width: MediaQuery.of(context).size.width / 1.5,
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     );

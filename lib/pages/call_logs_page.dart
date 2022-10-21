@@ -32,38 +32,36 @@ class _CallLogsPageState extends State<CallLogsPage> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => callsController.isLoading.value
-          ? Center(
-              child: SharedCore.buildLoaderIndicator(),
-            )
-          : Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.check,
-                    color: greenColor,
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    'All Call Logs are up to date!',
-                    style: TextStyle(
-                      color: greenColor,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  SharedCore.buildRoundedOutlinedButton(
-                    btnText: 'Refresh',
-                    onPress: submitCallLogs,
-                    btnColor: mainColor,
-                  )
-                ],
+      () => Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipOval(
+                child: Image.asset(
+                  appLogoPath,
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
+              const Spacer(),
+              callsController.isLoading.value
+                  ? Center(
+                      child: SharedCore.buildLoaderIndicator(),
+                    )
+                  : SizedBox(
+                      width: Get.width,
+                      child: SharedCore.buildRoundedElevatedButton(
+                        btnChild: const Text('Start'),
+                        onPress: submitCallLogs,
+                      ),
+                    ),
+              const Spacer(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
