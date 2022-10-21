@@ -21,12 +21,8 @@ class WowmeApp extends StatelessWidget {
       getPages: AppRoutes.routes,
       initialBinding: InitialBindings(),
       home: const SplashScreen(),
-      theme: ThemeData.light(
+      theme: ThemeData.dark(
         useMaterial3: true,
-      ).copyWith(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: mainColor,
-        ),
       ),
     );
   }

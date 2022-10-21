@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = '';
 
   bool _isLoading = false;
-  bool _isObscure = false;
+  bool _isObscure = true;
 
   void _loginMember() async {
     final isValid = _formKey.currentState?.validate();
@@ -48,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -58,20 +61,17 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 32,
-                ),
                 ClipOval(
                   child: Image.asset(
                     appLogoPath,
-                    width: MediaQuery.of(context).size.width / 2,
+                    width: MediaQuery.of(context).size.width / 1.5,
                     fit: BoxFit.fill,
                   ),
                 ),
                 SizedBox(
-                  height: 32,
+                  height: 16,
                 ),
-                Text(
+                const Text(
                   'Login',
                   style: TextStyle(
                     fontSize: 28.0,
@@ -107,6 +107,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   inputType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.done,
                   isObscure: _isObscure,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.remove_red_eye,
+                    ),
+                  ),
                   onValidate: (text) {
                     if (text == null || text.isEmpty) {
                       return 'Password missing';
@@ -126,7 +136,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SharedCore.buildRoundedElevatedButton(
                     btnChild: _isLoading
                         ? SharedCore.buildLoaderIndicator()
-                        : const Text('Login'),
+                        : const Text(
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                     onPress: _isLoading ? null : _loginMember,
                   ),
                 ),
