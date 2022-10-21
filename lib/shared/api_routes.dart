@@ -7,4 +7,5 @@ class ApiRoutes {
   static const String logout = '$baseUrl/logout';
 
   static const String callLogs = '$baseUrl/call-log';
+  static const String lastCallLogs = '$baseUrl/last-call-log';
 }

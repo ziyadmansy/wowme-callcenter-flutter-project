@@ -53,9 +53,11 @@ class _CallLogsPageState extends State<CallLogsPage> {
                   : SizedBox(
                       width: Get.width,
                       child: SharedCore.buildRoundedElevatedButton(
-                        btnChild: const Text(
-                          'Start',
-                          style: TextStyle(
+                        btnChild: Text(
+                          callsController.isCheckIn.value
+                              ? 'Check in'
+                              : 'Check out',
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),

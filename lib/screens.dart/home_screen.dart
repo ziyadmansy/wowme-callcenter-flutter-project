@@ -36,19 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
         title: _bottomNavItems[_selectedBottomNav]['title'] as String,
       ),
       bottomNavigationBar: BottomAppBar(
-        notchMargin: 6,
-        shape: const AutomaticNotchedShape(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(5),
-            ),
-          ),
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(22),
-            ),
-          ),
-        ),
         child: BottomNavigationBar(
           elevation: 0,
           currentIndex: _selectedBottomNav,
