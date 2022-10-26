@@ -50,9 +50,11 @@ class SharedCore {
 
   static AppBar buildAppBar({
     required String title,
+    List<Widget>? actions,
   }) {
     return AppBar(
       title: Text(title),
+      actions: actions,
     );
   }
 

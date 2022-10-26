@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:call_log/call_log.dart';
 import 'package:get/get.dart';
+import 'package:telephony/telephony.dart';
 import 'package:wowme/controllers/auth_controller.dart';
 import 'package:wowme/shared/api_routes.dart';
 import 'package:wowme/shared/shared_core.dart';
@@ -8,15 +9,16 @@ import 'package:wowme/shared/shared_core.dart';
 class CallsController extends GetConnect {
   Rx<bool> isLoading = false.obs;
 
-  Rx<bool> isCheckIn = true.obs;
+  Future<CallState> checkCallState() async {
+    final Telephony telephony = Telephony.instance;
+    CallState state = await telephony.callState;
+    print(state.name);
+    return state;
+  }
 
   Future<void> submitCallLogs(List<CallLogEntry> logs) async {
     try {
-      // Flip button action
-      isCheckIn.value = !isCheckIn.value;
-
       if (logs.isEmpty) {
-        Get.snackbar('Empty Logs', 'No data to send');
         return;
       }
 
@@ -54,7 +56,7 @@ class CallsController extends GetConnect {
 
       if (formattedLogs.isEmpty) {
         // No new Call Logs
-        Get.snackbar('Up to date!', 'You are already up to date');
+        // Get.snackbar('Up to date!', 'You are already up to date');
         return;
       }
 
@@ -73,9 +75,7 @@ class CallsController extends GetConnect {
         // Success
         Get.snackbar(
           'Success - Code ${response.statusCode}',
-          isCheckIn.value
-              ? 'Checked in successfully'
-              : 'Checked out successfully',
+          'Call logs submitted successfully!',
         );
       } else if (response.statusCode == 422) {
         final authController = Get.find<AuthController>();

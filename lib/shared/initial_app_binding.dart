@@ -6,6 +6,6 @@ class InitialBindings extends Bindings {
   @override
   void dependencies() {
     Get.put(AuthController());
-    Get.put(CallsController());
+    Get.put(CallsController(), permanent: true);
   }
 }

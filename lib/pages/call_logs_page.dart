@@ -31,41 +31,14 @@ class _CallLogsPageState extends State<CallLogsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ClipOval(
-                child: Image.asset(
-                  appLogoPath,
-                  width: MediaQuery.of(context).size.width / 1.5,
-                  fit: BoxFit.fill,
-                ),
-              ),
-              const Spacer(),
-              callsController.isLoading.value
-                  ? Center(
-                      child: SharedCore.buildLoaderIndicator(),
-                    )
-                  : SizedBox(
-                      width: Get.width,
-                      child: SharedCore.buildRoundedElevatedButton(
-                        btnChild: Text(
-                          callsController.isCheckIn.value
-                              ? 'Check in'
-                              : 'Check out',
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPress: submitCallLogs,
-                      ),
-                    ),
-              const Spacer(),
-            ],
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ClipOval(
+          child: Image.asset(
+            appLogoPath,
+            width: MediaQuery.of(context).size.width / 1.5,
+            fit: BoxFit.fill,
           ),
         ),
       ),
