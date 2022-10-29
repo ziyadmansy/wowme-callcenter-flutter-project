@@ -45,9 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
         final currentCallState = await callsController.checkCallState();
         if (currentCallState == CallState.RINGING ||
             currentCallState == CallState.OFFHOOK) {
+          // In case the phone is ringing(CallState.RINGING)
+          // Or case the phone is in call(CallState.OFFHOOK)
           return;
+        } else {
+          await submitCallLogs();
         }
-        await submitCallLogs();
       },
     );
   }
@@ -56,6 +59,12 @@ class _HomeScreenState extends State<HomeScreen> {
     Iterable<CallLogEntry> entries = await CallLog.get();
 
     await callsController.submitCallLogs(entries.toList());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    callLogCheckerTimer?.cancel();
   }
 
   @override

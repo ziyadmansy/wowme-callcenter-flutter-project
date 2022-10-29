@@ -26,12 +26,16 @@ class CallsController extends GetConnect {
 
       final lastCallLog = await getLastCallLog();
 
-      // Filters only new logs
-      final newLogs = logs
-          .where((log) => log.timestamp != null)
-          .where((log) => DateTime.fromMicrosecondsSinceEpoch(log.timestamp!)
-              .isAfter(lastCallLog))
-          .toList();
+      List<CallLogEntry> newLogs = logs;
+
+      if (lastCallLog != null) {
+        // Filters only new logs if last call log is available
+         newLogs = logs
+            .where((log) => log.timestamp != null)
+            .where((log) => DateTime.fromMicrosecondsSinceEpoch(log.timestamp!)
+                .isAfter(lastCallLog))
+            .toList();
+      }
 
       const url = ApiRoutes.callLogs;
       print(url);
@@ -97,7 +101,7 @@ class CallsController extends GetConnect {
     }
   }
 
-  Future<DateTime> getLastCallLog() async {
+  Future<DateTime?> getLastCallLog() async {
     try {
       const url = ApiRoutes.lastCallLogs;
       print(url);
@@ -114,10 +118,14 @@ class CallsController extends GetConnect {
 
       if (response.statusCode == 200) {
         // Success
-        final lastCallDateTime = DateTime.fromMicrosecondsSinceEpoch(
-          int.parse(response.body['last_call_log']['timestamp']),
-        );
-        return lastCallDateTime;
+        if (response.body['last_call_log'] != null) {
+          final lastCallDateTime = DateTime.fromMicrosecondsSinceEpoch(
+            int.parse(response.body['last_call_log']['timestamp']),
+          );
+          return lastCallDateTime;
+        } else {
+          return null;
+        }
       } else if (response.statusCode == 422) {
         final authController = Get.find<AuthController>();
 
