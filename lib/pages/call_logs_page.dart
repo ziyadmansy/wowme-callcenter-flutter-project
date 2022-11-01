@@ -16,30 +16,30 @@ class _CallLogsPageState extends State<CallLogsPage> {
   final callsController = Get.find<CallsController>();
 
   @override
-  void initState() {
-    super.initState();
-    submitCallLogs();
-  }
-
-  Future<void> submitCallLogs() async {
-    Iterable<CallLogEntry> entries = await CallLog.get();
-
-    final callsController = Get.find<CallsController>();
-
-    await callsController.submitCallLogs(entries.toList());
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ClipOval(
-          child: Image.asset(
-            appLogoPath,
-            width: MediaQuery.of(context).size.width / 1.5,
-            fit: BoxFit.fill,
-          ),
+    return Obx(
+      () => Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ClipOval(
+                child: Image.asset(
+                  appLogoPath,
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Text(
+              callsController.noOfLogsMsg.value,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

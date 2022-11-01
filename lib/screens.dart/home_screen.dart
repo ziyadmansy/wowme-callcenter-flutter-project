@@ -4,6 +4,7 @@ import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:telephony/telephony.dart';
+import 'package:wakelock/wakelock.dart';
 import 'package:wowme/controllers/calls_controller.dart';
 import 'package:wowme/pages/call_logs_page.dart';
 import 'package:wowme/pages/menu_page.dart';
@@ -40,13 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // Check new call logs
     callLogCheckerTimer = Timer.periodic(
-      const Duration(seconds: 10),
+      const Duration(seconds: 15),
       (timer) async {
+        Wakelock.enable();
         final currentCallState = await callsController.checkCallState();
         if (currentCallState == CallState.RINGING ||
             currentCallState == CallState.OFFHOOK) {
           // In case the phone is ringing(CallState.RINGING)
           // Or case the phone is in call(CallState.OFFHOOK)
+          callsController.noOfLogsMsg.value =
+              '${callsController.noOfLogsMsg.value}\n${currentCallState.name}';
           return;
         } else {
           await submitCallLogs();

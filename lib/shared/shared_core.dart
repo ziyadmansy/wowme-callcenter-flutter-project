@@ -1,10 +1,20 @@
 import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:wowme/controllers/auth_controller.dart';
 import 'package:wowme/shared/constants.dart';
 
 class SharedCore {
+  static final dateFormat = DateFormat('d MMM, yyyy');
+  static final monthlyDateFormat = DateFormat('MMM, yyyy');
+  static final timeFormat = DateFormat.jm();
+  static final dateTimeFormat = DateFormat('dd-MM-yyyy').add_jm();
+
+  static DateTime getDateTimeFromTimeStamp(int timeStamp) {
+    return DateTime.fromMillisecondsSinceEpoch(timeStamp);
+  }
+
   static Rx<String> getAccessToken() {
     final accessToken = Get.find<AuthController>().accessToken;
     print('Access Token: ${accessToken.value}');
