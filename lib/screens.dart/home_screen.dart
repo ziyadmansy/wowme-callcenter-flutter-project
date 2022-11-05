@@ -43,7 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
     callLogCheckerTimer = Timer.periodic(
       const Duration(seconds: 15),
       (timer) async {
-        Wakelock.enable();
+        try {
+          Wakelock.enable();
+        } catch (e) {
+          print(e);
+        }
         final currentCallState = await callsController.checkCallState();
         if (currentCallState == CallState.RINGING ||
             currentCallState == CallState.OFFHOOK) {

@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         final authController = Get.find<AuthController>();
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final savedAccessToken = prefs.getString(accessTokenPrefsKey);
-        Get.snackbar('access token', savedAccessToken ?? 'Empty Token');
+        // Get.snackbar('access token', savedAccessToken ?? 'Empty Token');
         if (savedAccessToken == null || savedAccessToken.isEmpty) {
           Get.offNamed(AppRoutes.loginRoute);
         } else {

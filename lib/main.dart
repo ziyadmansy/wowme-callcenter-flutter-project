@@ -19,7 +19,7 @@ void main() async {
 
   await validatePhonePermissions();
 
-  await initializeService();
+  // await initializeBackgroundService();
   runApp(const WowmeApp());
 }
 
@@ -34,7 +34,7 @@ Future<void> validatePhonePermissions() async {
   print('SMS Permission: $isPhonePermissionsGranted');
 }
 
-Future<void> initializeService() async {
+Future<void> initializeBackgroundService() async {
   final service = FlutterBackgroundService();
 
   await service.configure(
